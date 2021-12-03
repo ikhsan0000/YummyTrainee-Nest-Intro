@@ -7,10 +7,7 @@ import { User } from './models/user.entity';
 export class UserService {
     constructor(
         @InjectRepository(User) private readonly userRepository: Repository<User>
-    )
-    {
-        
-    }
+    ){}
 
     async all(): Promise<User[]>
     {
@@ -20,6 +17,11 @@ export class UserService {
     async create(data): Promise<User>
     {
         return this.userRepository.save(data); 
+    }
+
+    async findOne(condition): Promise<User>
+    {
+        return this.userRepository.findOne(condition)
     }
     
 }
