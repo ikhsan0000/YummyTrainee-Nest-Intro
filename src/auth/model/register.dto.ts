@@ -4,6 +4,9 @@ export class RegisterDto
 {
     @IsNotEmpty()
     first_name: string;
+    
+    @IsNotEmpty()
+    middle_name: string;
 
     @IsNotEmpty()
     last_name: string;

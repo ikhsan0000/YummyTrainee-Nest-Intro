@@ -12,7 +12,7 @@ services:
   db:
     image: mysql:5.7.22
     command: --max_allowed_packet=32505856
-    restart: always
+    # restart: always
     environment:
       MYSQL_DATABASE: admin
       MYSQL_USER: root
