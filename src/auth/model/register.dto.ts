@@ -4,9 +4,6 @@ export class RegisterDto
 {
     @IsNotEmpty()
     first_name: string;
-    
-    @IsNotEmpty()
-    middle_name: string;
 
     @IsNotEmpty()
     last_name: string;
@@ -20,4 +17,6 @@ export class RegisterDto
 
     @IsNotEmpty()
     password_confirm: string;
+
+    role_id: number;
 }

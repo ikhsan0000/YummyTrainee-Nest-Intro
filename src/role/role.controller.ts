@@ -3,7 +3,7 @@ import { Permission } from 'src/permision/permission.entity';
 import { Role } from './models/role.entity';
 import { RoleService } from './role.service';
 
-@Controller('role')
+@Controller('roles')
 export class RoleController {
     constructor(private roleService: RoleService){}
   
@@ -14,16 +14,9 @@ export class RoleController {
     }
 
     @Get(':id')
-    async findOne(@Param('id') urlId: string): Promise<String>
+    async findOne(@Param('id') urlId: string)
     {
-        const role = await this.roleService.findOne({id: urlId});
-
-        if(!role)
-        {
-            throw new NotFoundException('Role with that id does not exist!');
-        }
-
-        return 'the role is: ' + role.name;
+        return this.roleService.findOne({id: urlId}, ['permissions']);
     }
 
     @Put(':id')
