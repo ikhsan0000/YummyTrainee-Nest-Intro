@@ -2,6 +2,7 @@ import { ClassSerializerInterceptor, Controller, Get, Post, Query, Res, UseGuard
 import { Response } from 'express';
 import { Parser } from 'json2csv';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { HasPermission } from 'src/permision/has.permission.decorator';
 import { Order } from './models/order.entity';
 import { OrderService } from './order.service';
 
@@ -13,7 +14,8 @@ export class OrderController {
     constructor(private orderService: OrderService){}
 
     @Get('orders')
-    async all(@Query('page') page: number = 1)
+    @HasPermission('orders')
+    async all(@Query('page') page: number = 1): Promise<import("c:/Users/Ikhsan F/Desktop/Material + ref book/Programs Projects/Yummy Engineer Trainee/Getting-Started/nest-js-intro/src/common/paginated.result").PaginatedResult>
     {
         return this.orderService.paginate(page, ['order_items']);
     }

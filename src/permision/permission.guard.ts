@@ -33,14 +33,15 @@ export class PermissionGuard implements CanActivate {
         roleNames.push(p.name);
       });                                       //get all the current user role's name
       
-      if (roleNames.some(p => p == access))
+      if(request.method === 'GET')
       {
-        return true;
+        return roleNames.some(p => (p === `view_${access}`) || (p === `edit_${access}`) );
       }
       else
       {
-        throw new BadRequestException("You don't have the permission to do this");
+        return roleNames.some(p => (p === `edit_${access}`) );
       }
+      
     }
     
   }

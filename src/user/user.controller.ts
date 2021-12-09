@@ -7,7 +7,10 @@ import { UserService } from './user.service';
 import * as bcrypt from 'bcryptjs';
 import { AuthService } from 'src/auth/auth.service';
 import { request, Request } from 'express';
+import { HasPermission } from 'src/permision/has.permission.decorator';
 
+@UseInterceptors(ClassSerializerInterceptor)
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
 
@@ -17,18 +20,21 @@ export class UserController {
         ){}
  
     @Get()
+    @HasPermission('users')
     async all(@Query('page')page: number) 
     {
         return await this.userService.paginate(page, ['role']);
     }
 
     @Get(':id')
+    @HasPermission('users')
     async findOne(@Param('id') urlId: number)
     {
         return this.userService.findOne({id: urlId}, ['role'])
     }
 
     @Post()
+    @HasPermission('users')
     async create(@Body() body: UserCreateDto): Promise<User>
     {
         const password = await bcrypt.hash('123', 12);
@@ -80,6 +86,7 @@ export class UserController {
 
 
     @Put(':id')
+    @HasPermission('users')
     async update(
         @Param('id') id: number,
         @Body() body: UserUpdateDto
@@ -98,6 +105,7 @@ export class UserController {
     }
 
     @Delete(':id')
+    @HasPermission('users')
     async delete(@Param('id') id: number)
     {
         return this.userService.delete(id);

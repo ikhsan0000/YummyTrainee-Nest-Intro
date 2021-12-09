@@ -10,7 +10,7 @@ export class PermissionController {
     {}
 
     @Get()
-    @HasPermission('view_permissions')
+    @HasPermission('permissions')
     async all()
     {
         return this.permissionService.all()
